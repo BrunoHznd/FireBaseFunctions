@@ -1,0 +1,34 @@
+
+📸 CONTEXTO FOTOGRÁFICO ORIGINAL (para referência visual):
+visao_geral: Um terno masculino de cor azul vibrante, composto por paletó e colete, com uma camisa branca e gravata prateada.
+tipo_de_peca: Terno masculino com paletó e colete.
+modelagem_e_corte: O paletó possui um corte slim, com lapelas clássicas e um ajuste que valoriza a silhueta. O colete é de corte reto, complementando o visual formal.
+estrutura_da_roupa: O paletó apresenta dois bolsos frontais e um bolso no peito, enquanto o colete é de botão único, proporcionando um visual elegante e coeso.
+texturas_e_materiais: O tecido parece ser uma mistura de poliéster e viscose, com uma superfície lisa que reflete a luz de maneira sutil, conferindo um aspecto sofisticado.
+cor_e_padrao: A cor azul é intensa e uniforme, sem padrões visíveis, criando um visual moderno e elegante.
+luz_e_iluminacao: A iluminação é suave e uniforme, destacando as linhas do terno e criando um leve brilho na superfície do tecido.
+config_camera: A imagem foi capturada em um fundo branco, com foco nítido no modelo, utilizando uma lente de 50mm para um retrato clássico.
+profundidade_de_campo: A profundidade de campo é rasa, mantendo o foco no modelo enquanto o fundo permanece desfocado, enfatizando a peça de vestuário.
+imperfeicoes_naturais: Não há imperfeições visíveis, o terno apresenta um acabamento impecável, sem rugas ou marcas.
+ambiente_e_fundo: O fundo é branco e liso, proporcionando um contraste forte com a cor do terno e destacando o modelo.
+atmosfera: A atmosfera é formal e elegante, ideal para eventos sociais ou profissionais.
+estilo_fotografico: O estilo fotográfico é clean e minimalista, focando na apresentação do terno e na postura confiante do modelo.
+
+🎯 TAREFA DE EDIÇÃO:
+A partir da descrição acima, **gere uma nova versão da imagem** com aparência **fotográfica realista**, aplicando com precisão o seguinte pedido:
+
+➡️ "Faça um raio no peito do terno"
+
+A edição deve ser claramente visível, mantendo coerência com luz, perspectiva e materiais reais.  
+Não ignore o pedido nem o suavize — o resultado final deve refletir claramente essa alteração, sem afetar o restante da imagem.
+
+🔧 REGRAS DE REALISMO:
+- Preserve enquadramento, luz, ângulo e textura originais.
+- Aplique as mudanças diretamente sobre o objeto ou roupa indicada.
+- A edição deve parecer uma foto real, sem aparência digital ou redesenhada.
+- Se houver tecido, mantenha o comportamento físico da luz e sombra.
+- Se houver pessoa, mantenha rosto e corpo idênticos, apenas alterando o item descrito.
+
+🧭 ESTILO FOTOGRÁFICO:
+Fotografia de moda editorial com realismo físico, luz natural difusa, textura nítida e equilíbrio de cores.  
+Evite visual de ilustração ou render 3D.

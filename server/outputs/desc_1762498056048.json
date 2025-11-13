@@ -1,0 +1,24 @@
+cd{
+  "visao_geral": "A imagem apresenta um vestido longo e volumoso, exibido em um manequim, com um fundo neutro que destaca a peça.",
+  "pessoa_presente": false,
+  "pose": "O vestido está em pé, em um manequim, sem movimento.",
+  "expressao_facial": "N/A",
+  "quais_partes_visiveis": "Vestido completo, manequim, parte do sofá e cortinas ao fundo.",
+  "roupas": "Vestido longo de festa, com corpete justo e saia volumosa.",
+  "pontos_de_foco_da_roupa": "Detalhes em rendas e bordados na parte superior do vestido, além da fluidez da saia.",
+  "cores_predominantes": "Vermelho intenso.",
+  "texturas_e_material": "Tecido de tule com bordados, proporcionando uma aparência leve e etérea.",
+  "detalhes_finos": "Bordados florais na parte superior do vestido, alças delicadas e uma saia com várias camadas.",
+  "acessorios": "N/A",
+  "iluminacao": {
+    "tipo": "Natural",
+    "direcao": "Frontal, vindo das janelas ao fundo.",
+    "intensidade": "Moderada, criando um efeito suave sobre o vestido."
+  },
+  "sombras": "Sombras suaves projetadas pelo vestido e pelo manequim, sem contrastes fortes.",
+  "fundo": "Cortinas brancas e um sofá marrom claro, criando um ambiente elegante e neutro.",
+  "perspectiva_e_angulo": "Visão frontal do vestido, com um leve ângulo lateral que permite ver a profundidade da saia.",
+  "profundidade_de_campo": "Foco nítido no vestido, com o fundo ligeiramente desfocado.",
+  "qualidade_da_imagem": "Alta resolução, sem granulação ou ruído visível.",
+  "itens_extra": "Sofá e parte da parede com textura."
+}

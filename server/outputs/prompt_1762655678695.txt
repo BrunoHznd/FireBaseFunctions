@@ -1,0 +1,66 @@
+
+📸 CONTEXTO ORIGINAL
+visao_geral: Um terno masculino de cor azul vibrante, composto por paletó, colete e calças, apresentando um visual elegante e moderno.
+tipo_de_peca: Terno masculino com paletó, colete e calças.
+modelagem_e_corte: O paletó possui um corte slim, com lapelas finas e um ajuste que valoriza a silhueta. O colete é de modelagem ajustada, complementando o visual. As calças seguem a mesma linha de corte, com um caimento reto.
+estrutura_da_roupa: O paletó tem dois botões frontais e bolsos laterais com aba. O colete é de um único botão, proporcionando um visual coeso. As calças têm passantes para cinto e um fechamento clássico.
+texturas_e_materiais: O tecido parece ser uma mistura de poliéster e viscose, com uma leve textura que reflete a luz de maneira suave, conferindo um aspecto sofisticado.
+cor_e_padrao: Um azul intenso e uniforme, sem padrões visíveis, que destaca a peça e a torna adequada para ocasiões formais.
+luz_e_iluminacao: A iluminação é uniforme, destacando as linhas do terno e criando um leve brilho no tecido, que realça a cor vibrante.
+config_camera: A imagem foi capturada em um fundo branco, com foco nítido no modelo, utilizando uma lente de 50mm para um retrato clássico.
+profundidade_de_campo: A profundidade de campo é rasa, mantendo o foco no modelo e desfocando levemente o fundo, o que ajuda a destacar a peça.
+imperfeicoes_naturais: Não há imperfeições visíveis, o terno apresenta um acabamento impecável, sem rugas ou marcas.
+ambiente_e_fundo: O fundo é branco e liso, proporcionando um contraste forte com o terno azul e enfatizando a formalidade da vestimenta.
+atmosfera: A atmosfera é de elegância e sofisticação, ideal para eventos formais ou ocasiões especiais.
+estilo_fotografico: O estilo é clean e minimalista, focando na apresentação do terno e na postura confiante do modelo.
+
+🎯 OBJETIVO DA EDIÇÃO
+Faça um raio no peito do terno
+
+
+🧍‍♀️ PESSOA OU MANEQUIM NA IMAGEM
+- Preserve a identidade física: mesmo rosto, corpo, pose e expressão.
+- Pele com textura natural (poros, tons sutis e iluminação física).
+- Cabelo deve manter forma, volume e brilho coerente.
+- Não altere o formato do corpo nem mude o rosto.
+- As roupas editadas devem encaixar-se naturalmente no corpo, com caimento e tensão realistas.
+- Luz e sombras sobre a pele e roupa devem permanecer consistentes com a iluminação original.
+
+
+
+👗 ESTILO E DESIGN DA ROUPA
+- Tipo de peça: Terno masculino com paletó, colete e calças..
+- Modelagem e corte: O paletó possui um corte slim, com lapelas finas e um ajuste que valoriza a silhueta. O colete é de modelagem ajustada, complementando o visual. As calças seguem a mesma linha de corte, com um caimento reto..
+- Texturas e materiais: O tecido parece ser uma mistura de poliéster e viscose, com uma leve textura que reflete a luz de maneira suave, conferindo um aspecto sofisticado..
+- Cor e padrão: Um azul intenso e uniforme, sem padrões visíveis, que destaca a peça e a torna adequada para ocasiões formais..
+- Estrutura da roupa: O paletó tem dois botões frontais e bolsos laterais com aba. O colete é de um único botão, proporcionando um visual coeso. As calças têm passantes para cinto e um fechamento clássico..
+- Se o pedido envolver mudança de tecido, cor, comprimento ou decote, preserve coerência anatômica e física.
+
+
+⚙️ REGRAS DE REALISMO
+- A imagem deve parecer uma fotografia real feita com câmera profissional.
+- Preserve iluminação, ângulo, textura e fidelidade dos materiais originais.
+- A modificação deve ser natural e fisicamente coerente.
+- Se houver movimento de tecido, mantenha continuidade e gravidade corretas.
+
+🧵 DETALHES FOTOGRÁFICOS E DE MATERIAIS
+- Tecido deve exibir textura física: fibras, costuras, dobras e leve brilho especular.
+- Luz deve interagir de forma física com o tecido e com a pele.
+- Preservar sombras suaves e consistentes com a luz original.
+- Fundo deve permanecer real, sem borrões artificiais.
+
+🚫 COISAS QUE NUNCA DEVEM ACONTECER
+- Não gere aparência de pintura digital, ilustração ou render 3D.
+- Não altere corpo, rosto, pose ou iluminação original.
+- Não suavize textura da pele nem aplique filtros digitais.
+- Não mude estilo fotográfico, enquadramento ou foco.
+
+📸 ESTILO FINAL
+- Fotografia editorial de moda com realismo físico e luz natural difusa.
+- Cores equilibradas, contraste suave e textura rica.
+- Profundidade de campo física (bokeh natural).
+- Aparência de foto DSLR de alta resolução.
+- O resultado final deve ser indistinguível de uma fotografia real.
+
+🧠 NOTA FINAL
+Crie uma versão hiper-realista e fiel ao pedido, respeitando a coerência física, anatômica e de iluminação da imagem original.

@@ -1,0 +1,34 @@
+
+📸 CONTEXTO FOTOGRÁFICO ORIGINAL (para referência visual):
+visao_geral: A peça é uma jaqueta com capuz, apresentando um design moderno e estilizado, ideal para um público jovem e urbano.
+tipo_de_peca: Jaqueta com capuz, longa, com zíper frontal.
+modelagem_e_corte: Corte solto e confortável, com um caimento que permite liberdade de movimento. O capuz é amplo e estruturado.
+estrutura_da_roupa: Possui um fechamento frontal com zíper, bolsos laterais com zíper e um detalhe elástico na cintura, que proporciona um ajuste mais definido.
+texturas_e_materiais: O tecido parece ser uma mistura de poliéster, com uma superfície lisa e leve, ideal para conforto e respirabilidade. A parte interna é forrada, sugerindo um toque suave.
+cor_e_padrao: Predominância de roxo, com detalhes em verde e dourado. O padrão inclui uma estrela verde grande nas costas e elementos gráficos nas mangas.
+luz_e_iluminacao: A iluminação é uniforme, destacando as cores vibrantes da jaqueta. O brilho do zíper e dos detalhes dourados reflete a luz, criando um contraste interessante.
+config_camera: A imagem foi capturada em um ângulo frontal e ligeiramente lateral, permitindo uma visão clara dos detalhes da peça.
+profundidade_de_campo: A profundidade de campo é rasa, focando na jaqueta enquanto o fundo permanece desfocado, enfatizando a peça.
+imperfeicoes_naturais: Não há imperfeições visíveis, a peça apresenta um acabamento limpo e bem estruturado.
+ambiente_e_fundo: O fundo é neutro, permitindo que a jaqueta se destaque. A ausência de distrações no fundo ajuda a focar nos detalhes da peça.
+atmosfera: A atmosfera é moderna e descolada, refletindo um estilo urbano e contemporâneo.
+estilo_fotografico: Fotografia de moda com ênfase em detalhes e texturas, capturando a essência do design contemporâneo.
+
+🎯 TAREFA DE EDIÇÃO:
+A partir da descrição acima, **gere uma nova versão da imagem** com aparência **fotográfica realista**, aplicando com precisão o seguinte pedido:
+
+➡️ "Na manga do casaco onde esta escrito "jojo" repetidamente troque por "Hznd""
+
+A edição deve ser claramente visível, mantendo coerência com luz, perspectiva e materiais reais.  
+Não ignore o pedido nem o suavize — o resultado final deve refletir claramente essa alteração, sem afetar o restante da imagem.
+
+🔧 REGRAS DE REALISMO:
+- Preserve enquadramento, luz, ângulo e textura originais.
+- Aplique as mudanças diretamente sobre o objeto ou roupa indicada.
+- A edição deve parecer uma foto real, sem aparência digital ou redesenhada.
+- Se houver tecido, mantenha o comportamento físico da luz e sombra.
+- Se houver pessoa, mantenha rosto e corpo idênticos, apenas alterando o item descrito.
+
+🧭 ESTILO FOTOGRÁFICO:
+Fotografia de moda editorial com realismo físico, luz natural difusa, textura nítida e equilíbrio de cores.  
+Evite visual de ilustração ou render 3D.
