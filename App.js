@@ -59,9 +59,7 @@ export default function App() {
       const fileType = image.mimeType || 'image/jpeg';
       console.log('[submit] Preparing payload', { fileName, fileType, uri });
 
-      if (Platform.OS === 'web') {
-        // No web, precisamos enviar um File/Blob
-        const resp = await fetch(uri);
+      if (Platform.OS === 'web') {        const resp = await fetch(uri);
         const blob = await resp.blob();
         const webType = blob.type || fileType;
         const file = new File([blob], fileName, { type: webType });
@@ -148,7 +146,11 @@ export default function App() {
       {resultImageUri ? (
         <View style={styles.resultBox}>
           <Text style={styles.resultTitle}>Resultado</Text>
-          <Image source={{ uri: resultImageUri }} style={styles.resultImage} />
+          <Image
+            source={{ uri: resultImageUri }}
+            style={styles.resultImage}
+            resizeMode="contain"
+          />
         </View>
       ) : null}
     </View>
@@ -200,5 +202,5 @@ const styles = StyleSheet.create({
   },
   resultBox: { marginTop: 16, gap: 8 },
   resultTitle: { fontSize: 16, fontWeight: '600' },
-  resultImage: { width: '100%', height: 300, borderRadius: 8 },
+  resultImage: { width: '100%', aspectRatio: 1, borderRadius: 8 },
 });

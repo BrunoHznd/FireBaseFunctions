@@ -144,40 +144,48 @@ Gere um JSON *puro* e *válido* descrevendo a imagem com realismo físico e riqu
 
 // 3️⃣ Novo SuperPrompt — com foco em EDIÇÃO explícita e realismo
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
-  const tecnicos = Object.entries(descricao)
+  const chavesRoupaPrioritarias = [
+    'tipo_de_peca',
+    'modelagem_e_corte',
+    'estrutura_da_roupa',
+    'texturas_e_materiais',
+    'cor_e_padrao',
+    'visao_geral',
+  ];
+
+  const partesRoupa = chavesRoupaPrioritarias
+    .filter((k) => descricao && descricao[k])
+    .map((k) => `${k}: ${descricao[k]}`)
+    .join('\n');
+
+  const tecnicosBase = Object.entries(descricao || {})
     .map(([k, v]) => `${k}: ${v}`)
     .join('\n');
 
-  const regrasHumanas = temPessoa
-    ? `
-- Preserve fielmente a pessoa ou manequim: pose, proporções, iluminação e textura natural.
-- As edições devem parecer fotografadas de verdade, com o mesmo corpo, tecido e fundo.`
-    : `
-- Não adicione pessoas.
-- As edições devem afetar apenas o tecido, cor, forma ou textura da roupa, mantendo realismo.`
+  const contextoRoupa = partesRoupa || tecnicosBase;
+
+  const instrucoesManequim = temPessoa
+    ? 'Mostre a roupa em um manequim humano genérico de estúdio, corpo neutro, sem copiar rosto ou identidade da pessoa original.'
+    : 'Mostre a roupa em um manequim humano genérico de estúdio, corpo neutro, sem adicionar nenhuma pessoa específica.';
 
   return `
-📸 CONTEXTO FOTOGRÁFICO ORIGINAL (para referência visual):
-${tecnicos}
+Roupa (descrição técnica, foco total na peça):
+${contextoRoupa}
 
-🎯 TAREFA DE EDIÇÃO:
-A partir da descrição acima, **gere uma nova versão da imagem** com aparência **fotográfica realista**, aplicando com precisão o seguinte pedido:
+Tarefa:
+Gere uma foto de moda realista mostrando APENAS a roupa descrita acima em um manequim humano genérico de estúdio.
+Aplique exatamente o seguinte pedido de edição na roupa:
+"${promptUser}"
 
-➡️ "${promptUser}"
+Regras:
+- Não copie rosto, corpo ou identidade da pessoa original.
+- Preserve tipo de peça, modelagem, caimento, tecido, textura e cor, ajustando apenas o que o pedido de edição exigir.
+- Mantenha luz e perspectiva coerentes com uma foto de estúdio real.
+- Não adicione pessoas reais, celebridades ou logotipos reais.
 
-A edição deve ser claramente visível, mantendo coerência com luz, perspectiva e materiais reais.  
-Não ignore o pedido nem o suavize — o resultado final deve refletir claramente essa alteração, sem afetar o restante da imagem.
-
-🔧 REGRAS DE REALISMO:
-- Preserve enquadramento, luz, ângulo e textura originais.
-- Aplique as mudanças diretamente sobre o objeto ou roupa indicada.
-- A edição deve parecer uma foto real, sem aparência digital ou redesenhada.
-- Se houver tecido, mantenha o comportamento físico da luz e sombra.
-- Se houver pessoa, mantenha rosto e corpo idênticos, apenas alterando o item descrito.
-
-🧭 ESTILO FOTOGRÁFICO:
-Fotografia de moda editorial com realismo físico, luz natural difusa, textura nítida e equilíbrio de cores.  
-Evite visual de ilustração ou render 3D.
+Estilo:
+- Fotografia de moda editorial, realista, bem iluminada, textura nítida, sem aparência de ilustração ou cartoon.
+${instrucoesManequim}
 `;
 }
 
