@@ -43,7 +43,7 @@ async function callChatAPI(body, label = 'GPT') {
 
   const text = data.choices?.[0]?.message?.content || '';
   console.log(`🧠 [${label}] 🔹 Resposta completa:\n${text}\n`);
-  return text;
+  return { text, data };
 }
 
 // 1️⃣ Detecção de presença humana
@@ -74,11 +74,12 @@ async function detectarPessoa(buffer) {
     ],
   };
 
-  const text = await callChatAPI(body, 'Detecção');
+  const { text, data } = await callChatAPI(body, 'Detecção');
   try {
-    return JSON.parse(text);
+    const parsed = JSON.parse(text);
+    return { ...parsed, _rawText: text, _rawData: data };
   } catch {
-    return { tem_pessoa: false, confianca: 0.0, descricao: text };
+    return { tem_pessoa: false, confianca: 0.0, descricao: text, _rawText: text, _rawData: data };
   }
 }
 
@@ -134,11 +135,12 @@ Gere um JSON *puro* e *válido* descrevendo a imagem com realismo físico e riqu
     ],
   };
 
-  const text = await callChatAPI(body, 'Descrição');
+  const { text, data } = await callChatAPI(body, 'Descrição');
   try {
-    return JSON.parse(text);
+    const parsed = JSON.parse(text);
+    return { ...parsed, _rawText: text, _rawData: data };
   } catch {
-    return { visao_geral: text };
+    return { visao_geral: text, _rawText: text, _rawData: data };
   }
 }
 
@@ -245,7 +247,7 @@ async function handleGenerate(req, res) {
     if (!url) throw new Error('Sem imagem retornada');
 
     console.log('✅ Edição gerada com realismo e fidelidade:', url);
-    res.json({ success: true, imageUrl: url, analise, descricao });
+    res.json({ success: true, imageUrl: url, analise, descricao, dalleRaw: data, superPrompt });
   } catch (err) {
     console.error('💥 Erro interno:', err);
     res.status(500).json({ error: err.message });
