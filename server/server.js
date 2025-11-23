@@ -237,7 +237,7 @@ async function handleGenerate(req, res) {
     if (!url) throw new Error('Sem imagem retornada');
 
     console.log('✅ Edição gerada com realismo e fidelidade:', url);
-    res.json({ success: true, url, analise, descricao });
+    res.json({ success: true, imageUrl: url, analise, descricao });
   } catch (err) {
     console.error('💥 Erro interno:', err);
     res.status(500).json({ error: err.message });
