@@ -155,7 +155,6 @@ Regras:
 }
 
 
-// SuperPrompt otimizado — fidelidade, 1 roupa, 1 manequim, 1 foto, fundo branco sem sombras
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const chavesRoupaPrioritarias = [
     'tipo_de_peca',
@@ -202,11 +201,14 @@ ${coresSecundarias.length ? `- Keep secondary colors coherent with: ${coresSecun
 Generate ONE single full-body product photo of a neutral mannequin wearing this exact clothing item, based strictly on the reference description below.
 
 IMAGE FORMAT (VERY IMPORTANT):
+- This must look like a real studio photograph, not a screenshot of any software or design interface.
 - Show ONLY ONE mannequin.
 - Show the mannequin in ONE single, continuous full-body view.
 - Do NOT create collages, grids, mosaics, multiple panels, split-screen or layouts with several images.
 - Do NOT show multiple angles, no front-and-back in the same image, no close-up boxes, no zoomed-in detail shots.
 - Do NOT add text, logos, icons, labels, color swatches, fabric samples or any graphic overlays.
+- Do NOT show any UI elements such as color wheels, hue/saturation panels, sliders, buttons, menus, toolbars, timelines or digital controls of any kind.
+- Do NOT show screens, monitors, phone frames or any interface of editing or 3D software.
 
 CLOTHING DESCRIPTION:
 ${descricaoRoupa}
@@ -227,6 +229,7 @@ BACKGROUND AND LIGHTING:
 
 STYLE:
 - Simple, realistic studio product photo, high sharpness, no cartoon look.
+- NOT a user interface, NOT a mockup screen, NOT a design tool; only a clean photograph of the mannequin and the suit.
 - Neutral mannequin with no recognizable face or identity.
 ${instrucoesManequimExtra}
 `;
