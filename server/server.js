@@ -214,10 +214,11 @@ EDIT REQUEST (ONLY CHANGE ALLOWED):
 ${promptUser}
 Do NOT change the overall design, cut or structure of the clothing except where strictly necessary to apply the edit above.
 
-BACKGROUND:
+BACKGROUND AND LIGHTING:
 - Pure white, uniform studio background.
 - No objects, no props, no visible walls, no horizon line.
-- Only a very soft, subtle shadow under the feet is allowed.
+- The clothing must be evenly lit with bright studio lighting, with no visible or harsh shadows on the fabric.
+- Avoid directional shadows on the suit; keep illumination flat, soft and uniform across the entire garment.
 
 STYLE:
 - Simple, realistic studio product photo, high sharpness, no cartoon look.
@@ -225,6 +226,7 @@ STYLE:
 ${instrucoesManequimExtra}
 `;
 }
+
 
 
 
