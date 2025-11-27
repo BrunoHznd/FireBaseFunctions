@@ -153,7 +153,9 @@ Regras:
     return { visao_geral: text, _rawText: text, _rawData: data };
   }
 }
-// SuperPrompt otimizado — foco em fidelidade, 1 roupa, 1 manequim, 1 foto, fundo branco
+
+
+// SuperPrompt otimizado — fidelidade, 1 roupa, 1 manequim, 1 foto, fundo branco sem sombras
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const chavesRoupaPrioritarias = [
     'tipo_de_peca',
@@ -215,10 +217,13 @@ ${promptUser}
 Do NOT change the overall design, cut or structure of the clothing except where strictly necessary to apply the edit above.
 
 BACKGROUND AND LIGHTING:
-- Pure white, uniform studio background.
-- No objects, no props, no visible walls, no horizon line.
-- The clothing must be evenly lit with bright studio lighting, with no visible or harsh shadows on the fabric.
-- Avoid directional shadows on the suit; keep illumination flat, soft and uniform across the entire garment.
+- Pure white, seamless, uniform studio background (like e-commerce product photos).
+- The background must be completely white, with NO gradients, NO vignetting, NO dark areas and NO visible walls or curves.
+- Do NOT create any cast shadow on the background or behind the mannequin.
+- The clothing must be evenly lit with bright, soft studio lighting, with no visible shadows or dark patches on the garment.
+- Avoid any directional or dramatic spotlight lighting.
+- Ideally, keep illumination flat, soft and uniform across the entire image.
+- If in doubt, remove all shadows and keep the scene fully and evenly lit.
 
 STYLE:
 - Simple, realistic studio product photo, high sharpness, no cartoon look.
@@ -226,6 +231,7 @@ STYLE:
 ${instrucoesManequimExtra}
 `;
 }
+
 
 
 
