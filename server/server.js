@@ -144,8 +144,7 @@ Gere um JSON *puro* e *válido* descrevendo a imagem com realismo físico e riqu
   }
 }
 
-// 3️⃣ Novo SuperPrompt — com foco em EDIÇÃO explícita e realismo
-// 3️⃣ Novo SuperPrompt — EDIÇÃO explícita, realismo, fundo branco e APENAS UMA ROUPA
+// 3️⃣ SuperPrompt — edição, realismo, APENAS UMA ROUPA e CENÁRIO TOTALMENTE BRANCO
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const chavesRoupaPrioritarias = [
     'tipo_de_peca',
@@ -182,11 +181,16 @@ Aplique exatamente o seguinte pedido de edição na roupa:
 
 Regras:
 - Exiba apenas UM manequim e UMA única roupa na imagem.
-- Não mostre múltiplos manequins, nem variações lado a lado, nem montagem de catálogo, nem frente e costas na mesma imagem.
+- Não mostre múltiplos manequins, nem variações lado a lado, nem frente e costas na mesma imagem.
 - Não crie colagens, nem imagens divididas, nem duplicações da roupa.
-- Fundo: totalmente branco, limpo, sem textura visível, sem objetos, sem cenário ao fundo.
-- Ignore qualquer descrição de ambiente ou fundo mencionada acima; use sempre fundo branco puro de estúdio.
-- Permita apenas uma sombra suave do manequim no chão para manter o realismo.
+
+- CENÁRIO:
+  - Use um fundo totalmente branco, puro e uniforme (como estúdio de catálogo).
+  - Sem gradiente, sem textura, sem paredes, sem chão visível, sem linha de horizonte.
+  - Não exiba qualquer objeto, mobiliário ou elemento de cenário.
+  - Ignore qualquer descrição de ambiente ou fundo mencionada na análise da imagem; sempre use cenário completamente branco neutro de estúdio.
+  - A única indicação de chão pode ser uma sombra extremamente suave e discreta logo abaixo dos pés, sem quebrar o fundo branco.
+
 - Não copie rosto, corpo ou identidade da pessoa original.
 - Preserve tipo de peça, modelagem, caimento, tecido, textura e cor, ajustando apenas o que o pedido de edição exigir.
 - Mantenha luz e perspectiva coerentes com uma foto de estúdio real, com ambiente claro (iluminação high key).
@@ -194,10 +198,11 @@ Regras:
 
 Estilo:
 - Fotografia de moda editorial / catálogo, realista, bem iluminada, textura nítida, sem aparência de ilustração ou cartoon.
-- Fundo branco minimalista, com ênfase total na roupa como elemento principal.
+- Fundo totalmente branco e minimalista, com ênfase total na roupa como elemento principal.
 ${instrucoesManequim}
 `;
 }
+
 
 
 
