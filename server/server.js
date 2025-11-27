@@ -153,7 +153,7 @@ Regras:
     return { visao_geral: text, _rawText: text, _rawData: data };
   }
 }
-// SuperPrompt — foco em FIDELIDADE, 1 roupa, 1 manequim, 1 foto, fundo branco
+// SuperPrompt otimizado — foco em fidelidade, 1 roupa, 1 manequim, 1 foto, fundo branco
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const chavesRoupaPrioritarias = [
     'tipo_de_peca',
@@ -164,86 +164,68 @@ function montarSuperPrompt(descricao, promptUser, temPessoa) {
     'visao_geral',
   ];
 
+  // Junta as partes de descrição da roupa em um texto contínuo
   const partesRoupa = chavesRoupaPrioritarias
     .filter((k) => descricao && descricao[k])
-    .map((k) => `${k}: ${descricao[k]}`)
-    .join('\n');
+    .map((k) => descricao[k])
+    .join(' ');
 
-  const tecnicosBase = Object.entries(descricao || {})
-    .map(([k, v]) => `${k}: ${v}`)
-    .join('\n');
-
-  const contextoRoupa = partesRoupa || tecnicosBase;
+  const descricaoRoupa =
+    partesRoupa ||
+    Object.values(descricao || {})
+      .filter((v) => typeof v === 'string')
+      .join(' ');
 
   const corPrincipal = descricao?.cor_principal_hex;
-  const coresSecundarias = descricao?.cores_secundarias_hex;
+  const coresSecundarias = Array.isArray(descricao?.cores_secundarias_hex)
+    ? descricao.cores_secundarias_hex
+    : [];
 
-  const blocoCoresHex = corPrincipal
-    ? `
-Cor da peça (prioridade máxima):
-- A cor principal da roupa deve corresponder ao código ${corPrincipal}.
-- Não altere o tom (hue), a saturação ou o brilho dessa cor, salvo ajustes mínimos para manter o realismo de luz de estúdio.
-${Array.isArray(coresSecundarias) && coresSecundarias.length
-  ? `- Cores secundárias relevantes: ${coresSecundarias.join(
-      ', '
-    )}. Mantenha coerência visual com essas cores.`
-  : ''}
+  const blocoCor = corPrincipal
+    ? `COLOR FIDELITY (HIGH PRIORITY):
+- The main color of the clothing must match approximately the hex code ${corPrincipal}.
+- Do not change the hue, saturation or brightness of this color, except for minimal adjustments needed for realistic studio lighting.
+${coresSecundarias.length ? `- Keep secondary colors coherent with: ${coresSecundarias.join(', ')}.` : ''}
 `
-    : '';
+    : `COLOR FIDELITY (HIGH PRIORITY):
+- Keep the main color of the clothing as close as possible to the original reference image.
+- Do not change the hue, saturation or brightness of this color, except for minimal adjustments needed for realistic studio lighting.
+`;
 
-  const instrucoesManequim = temPessoa
-    ? 'Mostre a roupa em UM ÚNICO manequim humano genérico de estúdio, corpo neutro, sem copiar rosto ou identidade da pessoa original.'
-    : 'Mostre a roupa em UM ÚNICO manequim humano genérico de estúdio, corpo neutro, sem adicionar nenhuma pessoa específica.';
+  const instrucoesManequimExtra = temPessoa
+    ? 'Use a neutral mannequin instead of copying the original person. Do not reproduce the original face or identity.'
+    : 'Use a neutral mannequin. Do not add any real person.';
 
   return `
-Roupa original (descrição técnica):
-${contextoRoupa}
+Generate ONE single full-body product photo of a neutral mannequin wearing this exact clothing item, based strictly on the reference description below.
 
-${blocoCoresHex}
+IMAGE FORMAT (VERY IMPORTANT):
+- Show ONLY ONE mannequin.
+- Show the mannequin in ONE single, continuous full-body view.
+- Do NOT create collages, grids, mosaics, multiple panels, split-screen or layouts with several images.
+- Do NOT show multiple angles, no front-and-back in the same image, no close-up boxes, no zoomed-in detail shots.
+- Do NOT add text, logos, icons, labels, color swatches, fabric samples or any graphic overlays.
 
-Objetivo:
-Gerar UMA ÚNICA foto de produto da MESMA roupa descrita acima, o mais fiel possível à peça original, como se fosse a mesma foto apenas retocada.
+CLOTHING DESCRIPTION:
+${descricaoRoupa}
 
-Mudança permitida:
-Apenas o seguinte pedido de edição na roupa:
-"${promptUser}"
+${blocoCor}
+EDIT REQUEST (ONLY CHANGE ALLOWED):
+${promptUser}
+Do NOT change the overall design, cut or structure of the clothing except where strictly necessary to apply the edit above.
 
-Regras de fidelidade (muito importantes):
-- Considere esta tarefa como uma EDIÇÃO mínima da roupa original, não uma nova criação.
-- Mantenha o mesmo tipo de peça, modelagem, corte, comprimento, posição e formato dos bolsos, largura das lapelas, quantidade de botões e proporções gerais.
-- Não redesenhe o terno, não invente novos detalhes estruturais.
-- Se houver conflito entre inventar algo novo e manter o design original, SEMPRE mantenha o design original.
+BACKGROUND:
+- Pure white, uniform studio background.
+- No objects, no props, no visible walls, no horizon line.
+- Only a very soft, subtle shadow under the feet is allowed.
 
-Composição da imagem:
-- Single shot: mostre APENAS UM manequim, de corpo inteiro, em UM ÚNICO enquadramento contínuo.
-- Produza APENAS UMA fotografia em um único quadro.
-- Não mostre múltiplos manequins, múltiplos ângulos, frente e costas, ou variações lado a lado.
-- Não crie colagens, grids, mosaicos, split-screen ou painéis múltiplos.
-- Não inclua recortes de detalhe, zooms, janelas extras ou closes separados.
-- Não inclua textos, logos, ícones, etiquetas, paletas de cor, amostras de tecido, barras laterais ou qualquer elemento gráfico adicional.
-
-Cor:
-- A roupa deve manter a mesma cor da peça original. Se houver conflito entre qualquer outra instrução e a cor ${
-    corPrincipal || 'original da roupa'
-  }, priorize SEMPRE manter essa cor o mais fiel possível.
-- Não aplique filtros de cor que mudem a tonalidade do tecido.
-
-Cenário:
-- Fundo totalmente branco, puro e uniforme (estúdio de produto).
-- Sem gradiente, sem textura, sem paredes, sem objetos, sem linha de horizonte.
-- Ignore qualquer descrição de ambiente ou fundo da análise original; use SEMPRE fundo branco neutro.
-- Permita apenas uma sombra suave e discreta sob os pés, sem quebrar o fundo branco.
-
-Outras regras:
-- Não copie rosto, corpo ou identidade da pessoa original.
-- Preserve tipo de peça, caimento, tecido e textura; altere somente o que o pedido de edição exigir.
-- Não adicione pessoas reais, celebridades ou logotipos reais.
-
-Estilo:
-- Foto de produto simples e realista em estúdio, fundo branco, nitidez alta, sem aparência de ilustração ou cartoon.
-${instrucoesManequim}
+STYLE:
+- Simple, realistic studio product photo, high sharpness, no cartoon look.
+- Neutral mannequin with no recognizable face or identity.
+${instrucoesManequimExtra}
 `;
 }
+
 
 
 // 4️⃣ Pipeline principal
