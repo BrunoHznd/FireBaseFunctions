@@ -145,6 +145,7 @@ Gere um JSON *puro* e *válido* descrevendo a imagem com realismo físico e riqu
 }
 
 // 3️⃣ Novo SuperPrompt — com foco em EDIÇÃO explícita e realismo
+// 3️⃣ Novo SuperPrompt — com foco em EDIÇÃO explícita, realismo e fundo branco
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const chavesRoupaPrioritarias = [
     'tipo_de_peca',
@@ -180,16 +181,21 @@ Aplique exatamente o seguinte pedido de edição na roupa:
 "${promptUser}"
 
 Regras:
+- Fundo: totalmente branco, limpo, sem textura visível, sem objetos, sem cenário ao fundo.
+- Ignore qualquer descrição de ambiente ou fundo mencionada acima; use sempre fundo branco puro de estúdio.
+- Permita apenas uma sombra suave do manequim no chão para manter o realismo.
 - Não copie rosto, corpo ou identidade da pessoa original.
 - Preserve tipo de peça, modelagem, caimento, tecido, textura e cor, ajustando apenas o que o pedido de edição exigir.
-- Mantenha luz e perspectiva coerentes com uma foto de estúdio real.
+- Mantenha luz e perspectiva coerentes com uma foto de estúdio real, com ambiente claro (iluminação high key).
 - Não adicione pessoas reais, celebridades ou logotipos reais.
 
 Estilo:
-- Fotografia de moda editorial, realista, bem iluminada, textura nítida, sem aparência de ilustração ou cartoon.
+- Fotografia de moda editorial / catálogo, realista, bem iluminada, textura nítida, sem aparência de ilustração ou cartoon.
+- Fundo branco minimalista, com ênfase total na roupa como elemento principal.
 ${instrucoesManequim}
 `;
 }
+
 
 // 4️⃣ Pipeline principal
 async function handleGenerate(req, res) {
