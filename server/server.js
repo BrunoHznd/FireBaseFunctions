@@ -154,7 +154,6 @@ Regras:
   }
 }
 
-// 3️⃣ SuperPrompt — edição, realismo, APENAS UMA ROUPA, CENÁRIO TOTALMENTE BRANCO e proteção de cor
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const chavesRoupaPrioritarias = [
     'tipo_de_peca',
@@ -207,27 +206,34 @@ Gere uma foto de moda realista mostrando APENAS UMA VERSÃO da roupa descrita ac
 Aplique exatamente o seguinte pedido de edição na roupa:
 "${promptUser}"
 
-Regras:
+Regras de composição:
 - Exiba apenas UM manequim e UMA única roupa na imagem.
+- Produza UMA ÚNICA fotografia em um único quadro.
 - Não mostre múltiplos manequins, nem variações lado a lado, nem frente e costas na mesma imagem.
-- Não crie colagens, nem imagens divididas, nem duplicações da roupa.
+- Não crie colagens, montagens, grids, mosaicos ou múltiplos painéis.
+- Não inclua paleta de cores, amostras de tecido, barras laterais, retângulos de cor ou qualquer elemento gráfico adicional.
+- Do NOT show color swatches, fabric samples, detail zoom boxes, multiple views, text, logos, labels, icons or graphic overlays.
 
-- CENÁRIO:
-  - Use um fundo totalmente branco, puro e uniforme (como estúdio de catálogo).
-  - Sem gradiente, sem textura, sem paredes, sem chão visível, sem linha de horizonte.
-  - Não exiba qualquer objeto, mobiliário ou elemento de cenário.
-  - Ignore qualquer descrição de ambiente ou fundo mencionada na análise da imagem; sempre use cenário completamente branco neutro de estúdio.
-  - A única indicação de chão pode ser uma sombra extremamente suave e discreta logo abaixo dos pés, sem quebrar o fundo branco.
+CENÁRIO:
+- Use um fundo totalmente branco, puro e uniforme (como estúdio de catálogo).
+- Sem gradiente, sem textura, sem paredes, sem chão visível, sem linha de horizonte.
+- Não exiba qualquer objeto, mobiliário ou elemento de cenário.
+- Ignore qualquer descrição de ambiente ou fundo mencionada na análise da imagem; sempre use cenário completamente branco neutro de estúdio.
+- A única indicação de chão pode ser uma sombra extremamente suave e discreta logo abaixo dos pés, sem quebrar o fundo branco.
 
-- A roupa deve manter a mesma cor da peça original. Se houver conflito entre qualquer outra instrução e a cor ${corPrincipal ||
-    'original da roupa'}, priorize manter essa cor o mais fiel possível.
+Cor e fidelidade da peça:
+- A roupa deve manter a mesma cor da peça original. Se houver conflito entre qualquer outra instrução e a cor ${
+    corPrincipal || 'original da roupa'
+  }, priorize manter essa cor o mais fiel possível.
+
+Outras regras:
 - Não copie rosto, corpo ou identidade da pessoa original.
 - Preserve tipo de peça, modelagem, caimento, tecido, textura e cor, ajustando apenas o que o pedido de edição exigir.
 - Mantenha luz e perspectiva coerentes com uma foto de estúdio real, com ambiente claro (iluminação high key).
 - Não adicione pessoas reais, celebridades ou logotipos reais.
 
 Estilo:
-- Fotografia de moda editorial / catálogo, realista, bem iluminada, textura nítida, sem aparência de ilustração ou cartoon.
+- Fotografia de moda de catálogo, realista, bem iluminada, textura nítida, sem aparência de ilustração ou cartoon.
 - Fundo totalmente branco e minimalista, com ênfase total na roupa como elemento principal.
 ${instrucoesManequim}
 `;
