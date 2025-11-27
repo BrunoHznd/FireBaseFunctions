@@ -206,13 +206,15 @@ Gere uma foto de moda realista mostrando APENAS UMA VERSÃO da roupa descrita ac
 Aplique exatamente o seguinte pedido de edição na roupa:
 "${promptUser}"
 
-Regras de composição:
-- Exiba apenas UM manequim e UMA única roupa na imagem.
-- Produza UMA ÚNICA fotografia em um único quadro.
+Regras de COMPOSIÇÃO (muito importantes):
+- Single shot: show ONE single full-body mannequin in the center of the frame.
+- A imagem deve mostrar UM ÚNICO manequim, de corpo inteiro (da cabeça aos pés), em UM ÚNICO enquadramento contínuo.
+- Produza APENAS UMA fotografia em um único quadro.
 - Não mostre múltiplos manequins, nem variações lado a lado, nem frente e costas na mesma imagem.
-- Não crie colagens, montagens, grids, mosaicos ou múltiplos painéis.
-- Não inclua paleta de cores, amostras de tecido, barras laterais, retângulos de cor ou qualquer elemento gráfico adicional.
-- Do NOT show color swatches, fabric samples, detail zoom boxes, multiple views, text, logos, labels, icons or graphic overlays.
+- Não crie colagens, montagens, grids, mosaicos, split-screen ou múltiplos painéis.
+- Não inclua recortes, closes, zooms, janelas extras ou imagens de detalhe da roupa.
+- If you are about to add extra views, crops or detail boxes, remove them and keep ONLY the main full-body view.
+- Não inclua textos, logos, ícones, etiquetas, paleta de cores, amostras de tecido, barras laterais ou qualquer elemento gráfico adicional.
 
 CENÁRIO:
 - Use um fundo totalmente branco, puro e uniforme (como estúdio de catálogo).
@@ -233,7 +235,7 @@ Outras regras:
 - Não adicione pessoas reais, celebridades ou logotipos reais.
 
 Estilo:
-- Fotografia de moda de catálogo, realista, bem iluminada, textura nítida, sem aparência de ilustração ou cartoon.
+- Fotografia de moda realista, bem iluminada, textura nítida, sem aparência de ilustração ou cartoon.
 - Fundo totalmente branco e minimalista, com ênfase total na roupa como elemento principal.
 ${instrucoesManequim}
 `;
