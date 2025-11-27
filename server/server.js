@@ -153,7 +153,7 @@ Regras:
     return { visao_geral: text, _rawText: text, _rawData: data };
   }
 }
-
+// SuperPrompt — foco em FIDELIDADE, 1 roupa, 1 manequim, 1 foto, fundo branco
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const chavesRoupaPrioritarias = [
     'tipo_de_peca',
@@ -180,9 +180,9 @@ function montarSuperPrompt(descricao, promptUser, temPessoa) {
 
   const blocoCoresHex = corPrincipal
     ? `
-Proteção de cor da roupa:
+Cor da peça (prioridade máxima):
 - A cor principal da roupa deve corresponder ao código ${corPrincipal}.
-- Não altere o tom (hue), saturação ou luminosidade dessa cor, salvo ajustes mínimos para manter o realismo da luz de estúdio.
+- Não altere o tom (hue), a saturação ou o brilho dessa cor, salvo ajustes mínimos para manter o realismo de luz de estúdio.
 ${Array.isArray(coresSecundarias) && coresSecundarias.length
   ? `- Cores secundárias relevantes: ${coresSecundarias.join(
       ', '
@@ -196,50 +196,55 @@ ${Array.isArray(coresSecundarias) && coresSecundarias.length
     : 'Mostre a roupa em UM ÚNICO manequim humano genérico de estúdio, corpo neutro, sem adicionar nenhuma pessoa específica.';
 
   return `
-Roupa (descrição técnica, foco total na peça):
+Roupa original (descrição técnica):
 ${contextoRoupa}
 
 ${blocoCoresHex}
 
-Tarefa:
-Gere uma foto de moda realista mostrando APENAS UMA VERSÃO da roupa descrita acima em um manequim humano genérico de estúdio.
-Aplique exatamente o seguinte pedido de edição na roupa:
+Objetivo:
+Gerar UMA ÚNICA foto de produto da MESMA roupa descrita acima, o mais fiel possível à peça original, como se fosse a mesma foto apenas retocada.
+
+Mudança permitida:
+Apenas o seguinte pedido de edição na roupa:
 "${promptUser}"
 
-Regras de COMPOSIÇÃO (muito importantes):
-- Single shot: show ONE single full-body mannequin in the center of the frame.
-- A imagem deve mostrar UM ÚNICO manequim, de corpo inteiro (da cabeça aos pés), em UM ÚNICO enquadramento contínuo.
+Regras de fidelidade (muito importantes):
+- Considere esta tarefa como uma EDIÇÃO mínima da roupa original, não uma nova criação.
+- Mantenha o mesmo tipo de peça, modelagem, corte, comprimento, posição e formato dos bolsos, largura das lapelas, quantidade de botões e proporções gerais.
+- Não redesenhe o terno, não invente novos detalhes estruturais.
+- Se houver conflito entre inventar algo novo e manter o design original, SEMPRE mantenha o design original.
+
+Composição da imagem:
+- Single shot: mostre APENAS UM manequim, de corpo inteiro, em UM ÚNICO enquadramento contínuo.
 - Produza APENAS UMA fotografia em um único quadro.
-- Não mostre múltiplos manequins, nem variações lado a lado, nem frente e costas na mesma imagem.
-- Não crie colagens, montagens, grids, mosaicos, split-screen ou múltiplos painéis.
-- Não inclua recortes, closes, zooms, janelas extras ou imagens de detalhe da roupa.
-- If you are about to add extra views, crops or detail boxes, remove them and keep ONLY the main full-body view.
-- Não inclua textos, logos, ícones, etiquetas, paleta de cores, amostras de tecido, barras laterais ou qualquer elemento gráfico adicional.
+- Não mostre múltiplos manequins, múltiplos ângulos, frente e costas, ou variações lado a lado.
+- Não crie colagens, grids, mosaicos, split-screen ou painéis múltiplos.
+- Não inclua recortes de detalhe, zooms, janelas extras ou closes separados.
+- Não inclua textos, logos, ícones, etiquetas, paletas de cor, amostras de tecido, barras laterais ou qualquer elemento gráfico adicional.
 
-CENÁRIO:
-- Use um fundo totalmente branco, puro e uniforme (como estúdio de catálogo).
-- Sem gradiente, sem textura, sem paredes, sem chão visível, sem linha de horizonte.
-- Não exiba qualquer objeto, mobiliário ou elemento de cenário.
-- Ignore qualquer descrição de ambiente ou fundo mencionada na análise da imagem; sempre use cenário completamente branco neutro de estúdio.
-- A única indicação de chão pode ser uma sombra extremamente suave e discreta logo abaixo dos pés, sem quebrar o fundo branco.
-
-Cor e fidelidade da peça:
+Cor:
 - A roupa deve manter a mesma cor da peça original. Se houver conflito entre qualquer outra instrução e a cor ${
     corPrincipal || 'original da roupa'
-  }, priorize manter essa cor o mais fiel possível.
+  }, priorize SEMPRE manter essa cor o mais fiel possível.
+- Não aplique filtros de cor que mudem a tonalidade do tecido.
+
+Cenário:
+- Fundo totalmente branco, puro e uniforme (estúdio de produto).
+- Sem gradiente, sem textura, sem paredes, sem objetos, sem linha de horizonte.
+- Ignore qualquer descrição de ambiente ou fundo da análise original; use SEMPRE fundo branco neutro.
+- Permita apenas uma sombra suave e discreta sob os pés, sem quebrar o fundo branco.
 
 Outras regras:
 - Não copie rosto, corpo ou identidade da pessoa original.
-- Preserve tipo de peça, modelagem, caimento, tecido, textura e cor, ajustando apenas o que o pedido de edição exigir.
-- Mantenha luz e perspectiva coerentes com uma foto de estúdio real, com ambiente claro (iluminação high key).
+- Preserve tipo de peça, caimento, tecido e textura; altere somente o que o pedido de edição exigir.
 - Não adicione pessoas reais, celebridades ou logotipos reais.
 
 Estilo:
-- Fotografia de moda realista, bem iluminada, textura nítida, sem aparência de ilustração ou cartoon.
-- Fundo totalmente branco e minimalista, com ênfase total na roupa como elemento principal.
+- Foto de produto simples e realista em estúdio, fundo branco, nitidez alta, sem aparência de ilustração ou cartoon.
 ${instrucoesManequim}
 `;
 }
+
 
 // 4️⃣ Pipeline principal
 async function handleGenerate(req, res) {
