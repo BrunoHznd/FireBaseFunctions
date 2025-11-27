@@ -154,7 +154,6 @@ Regras:
   }
 }
 
-
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const chavesRoupaPrioritarias = [
     'tipo_de_peca',
@@ -165,7 +164,7 @@ function montarSuperPrompt(descricao, promptUser, temPessoa) {
     'visao_geral',
   ];
 
-  // Junta as partes de descrição da roupa em um texto contínuo
+  // Junta as partes mais importantes da descrição da roupa
   const partesRoupa = chavesRoupaPrioritarias
     .filter((k) => descricao && descricao[k])
     .map((k) => descricao[k])
@@ -183,57 +182,71 @@ function montarSuperPrompt(descricao, promptUser, temPessoa) {
     : [];
 
   const blocoCor = corPrincipal
-    ? `COLOR FIDELITY (HIGH PRIORITY):
-- The main color of the clothing must match approximately the hex code ${corPrincipal}.
-- Do not change the hue, saturation or brightness of this color, except for minimal adjustments needed for realistic studio lighting.
-${coresSecundarias.length ? `- Keep secondary colors coherent with: ${coresSecundarias.join(', ')}.` : ''}
+    ? `COLOR FIDELITY (HIGH PRIORITY)
+- The main color of the clothing must stay visually close to hex ${corPrincipal}.
+- Keep the perceived hue and overall brightness consistent with this color. Small adjustments are allowed ONLY to keep realistic studio lighting.
+${
+  coresSecundarias.length
+    ? `- Secondary colors on details, trims or patterns must stay coherent with: ${coresSecundarias.join(
+        ', '
+      )}.`
+    : '- Keep secondary colors coherent with the original reference image.'
+}
 `
-    : `COLOR FIDELITY (HIGH PRIORITY):
+    : `COLOR FIDELITY (HIGH PRIORITY)
 - Keep the main color of the clothing as close as possible to the original reference image.
-- Do not change the hue, saturation or brightness of this color, except for minimal adjustments needed for realistic studio lighting.
+- Do not recolor the garment. Only allow minimal adjustments required for realistic studio lighting.
 `;
 
   const instrucoesManequimExtra = temPessoa
-    ? 'Use a neutral mannequin instead of copying the original person. Do not reproduce the original face or identity.'
-    : 'Use a neutral mannequin. Do not add any real person.';
+    ? `- If the original image contains a real person, REPLACE them with a neutral mannequin while preserving the garment’s fit, folds and gravity.
+- Do NOT reproduce the original person’s face, identity or any recognizable likeness.`
+    : `- Use a neutral mannequin. Do NOT add any real person or realistic celebrity look-alike.`;
 
   return `
-Generate ONE single full-body product photo of a neutral mannequin wearing this exact clothing item, based strictly on the reference description below.
+Generate a single full-body studio product photo of a neutral white mannequin wearing the reference clothing item described below.
 
-IMAGE FORMAT (VERY IMPORTANT):
-- This must look like a real studio photograph, not a screenshot of any software or design interface.
-- Show ONLY ONE mannequin.
-- Show the mannequin in ONE single, continuous full-body view.
-- Do NOT create collages, grids, mosaics, multiple panels, split-screen or layouts with several images.
-- Do NOT show multiple angles, no front-and-back in the same image, no close-up boxes, no zoomed-in detail shots.
-- Do NOT add text, logos, icons, labels, color swatches, fabric samples or any graphic overlays.
-- Do NOT show any UI elements such as color wheels, hue/saturation panels, sliders, buttons, menus, toolbars, timelines or digital controls of any kind.
-- Do NOT show screens, monitors, phone frames or any interface of editing or 3D software.
+GOAL (TOP PRIORITY)
+- Recreate the same garment design, fit and construction from the reference image with maximum fidelity.
+- Apply ONLY the edit described in "EDIT REQUEST" and do not change anything else.
 
-CLOTHING DESCRIPTION:
+MANNEQUIN AND POSE
+- Show EXACTLY ONE mannequin.
+- Neutral white mannequin body, smooth face, no recognizable identity.
+- Full-body view from head to toe, the entire body must be inside the frame.
+- Simple fashion pose, similar to a clothing catalog: the mannequin can stand with one hand resting on the hip and legs slightly apart.
+
+BACKGROUND
+- Clean light gray to white gradient studio background, like a professional fashion catalog.
+- No objects, furniture, logos, text, labels, accessories, or props.
+- Add only a very soft, subtle shadow on the floor under the mannequin. Avoid strong or dramatic shadows.
+
+LIGHTING AND RENDERING
+- Bright, soft, even studio lighting across the entire garment.
+- No harsh shadows, no strong directional spotlights, no colored lights.
+- Photo-realistic look, high resolution, high sharpness (not a drawing, not an illustration).
+- Avoid noise, glitches, artifacts or surreal distortions.
+
+${instrucoesManequimExtra}
+
+CLOTHING DESCRIPTION (REFERENCE, DO NOT CHANGE THE DESIGN)
 ${descricaoRoupa}
 
 ${blocoCor}
-EDIT REQUEST (ONLY CHANGE ALLOWED):
+EDIT REQUEST (ONLY CHANGE ALLOWED)
 ${promptUser}
-Do NOT change the overall design, cut or structure of the clothing except where strictly necessary to apply the edit above.
 
-BACKGROUND AND LIGHTING:
-- Pure white, seamless, uniform studio background (like e-commerce product photos).
-- The background must be completely white, with NO gradients, NO vignetting, NO dark areas and NO visible walls or curves.
-- Do NOT create any cast shadow on the background or behind the mannequin.
-- The clothing must be evenly lit with bright, soft studio lighting, with no visible shadows or dark patches on the garment.
-- Avoid any directional or dramatic spotlight lighting.
-- Ideally, keep illumination flat, soft and uniform across the entire image.
-- If in doubt, remove all shadows and keep the scene fully and evenly lit.
+CONSTRAINTS
+- Do NOT change the garment’s overall cut, tailoring, structure, length, neckline, lapels, pockets, buttons, seams or silhouette, except where strictly necessary to apply the edit.
+- Do NOT add or remove extra garments, accessories, logos, text or graphic prints that are not part of the reference.
+- Do NOT turn this into a UI screenshot, mockup, phone frame, computer screen or any software interface.
+- Do NOT add watermarks, icons, labels, color swatches or typography of any kind.
 
-STYLE:
-- Simple, realistic studio product photo, high sharpness, no cartoon look.
-- NOT a user interface, NOT a mockup screen, NOT a design tool; only a clean photograph of the mannequin and the suit.
-- Neutral mannequin with no recognizable face or identity.
-${instrucoesManequimExtra}
+FINAL STYLE
+- The final image must look like a professional studio product photo ready for an online store: clean, minimal, realistic and focused entirely on the mannequin and the clothing.
 `;
 }
+
 
 
 
