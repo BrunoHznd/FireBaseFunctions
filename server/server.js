@@ -145,7 +145,7 @@ Gere um JSON *puro* e *válido* descrevendo a imagem com realismo físico e riqu
 }
 
 // 3️⃣ Novo SuperPrompt — com foco em EDIÇÃO explícita e realismo
-// 3️⃣ Novo SuperPrompt — com foco em EDIÇÃO explícita, realismo e fundo branco
+// 3️⃣ Novo SuperPrompt — EDIÇÃO explícita, realismo, fundo branco e APENAS UMA ROUPA
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const chavesRoupaPrioritarias = [
     'tipo_de_peca',
@@ -168,19 +168,22 @@ function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const contextoRoupa = partesRoupa || tecnicosBase;
 
   const instrucoesManequim = temPessoa
-    ? 'Mostre a roupa em um manequim humano genérico de estúdio, corpo neutro, sem copiar rosto ou identidade da pessoa original.'
-    : 'Mostre a roupa em um manequim humano genérico de estúdio, corpo neutro, sem adicionar nenhuma pessoa específica.';
+    ? 'Mostre a roupa em UM ÚNICO manequim humano genérico de estúdio, corpo neutro, sem copiar rosto ou identidade da pessoa original.'
+    : 'Mostre a roupa em UM ÚNICO manequim humano genérico de estúdio, corpo neutro, sem adicionar nenhuma pessoa específica.';
 
   return `
 Roupa (descrição técnica, foco total na peça):
 ${contextoRoupa}
 
 Tarefa:
-Gere uma foto de moda realista mostrando APENAS a roupa descrita acima em um manequim humano genérico de estúdio.
+Gere uma foto de moda realista mostrando APENAS UMA VERSÃO da roupa descrita acima em um manequim humano genérico de estúdio.
 Aplique exatamente o seguinte pedido de edição na roupa:
 "${promptUser}"
 
 Regras:
+- Exiba apenas UM manequim e UMA única roupa na imagem.
+- Não mostre múltiplos manequins, nem variações lado a lado, nem montagem de catálogo, nem frente e costas na mesma imagem.
+- Não crie colagens, nem imagens divididas, nem duplicações da roupa.
 - Fundo: totalmente branco, limpo, sem textura visível, sem objetos, sem cenário ao fundo.
 - Ignore qualquer descrição de ambiente ou fundo mencionada acima; use sempre fundo branco puro de estúdio.
 - Permita apenas uma sombra suave do manequim no chão para manter o realismo.
@@ -195,6 +198,7 @@ Estilo:
 ${instrucoesManequim}
 `;
 }
+
 
 
 // 4️⃣ Pipeline principal
