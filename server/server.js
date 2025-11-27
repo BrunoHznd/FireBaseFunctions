@@ -79,11 +79,17 @@ async function detectarPessoa(buffer) {
     const parsed = JSON.parse(text);
     return { ...parsed, _rawText: text, _rawData: data };
   } catch {
-    return { tem_pessoa: false, confianca: 0.0, descricao: text, _rawText: text, _rawData: data };
+    return {
+      tem_pessoa: false,
+      confianca: 0.0,
+      descricao: text,
+      _rawText: text,
+      _rawData: data,
+    };
   }
 }
 
-// 2️⃣ Descrição detalhada (realismo + moda)
+// 2️⃣ Descrição detalhada (realismo + moda + captura de cores HEX)
 async function descreverImagemRealista(buffer) {
   console.log('🧩 [2] Gerando descrição detalhada com foco em moda e realismo...');
   const base64 = buffer.toString('base64');
@@ -98,9 +104,9 @@ async function descreverImagemRealista(buffer) {
 Você é um analista visual e fotógrafo profissional especializado em realismo físico e moda.  
 Descreva imagens com foco técnico e detalhamento têxtil, como faria um fotógrafo e designer de roupas.
 
-Gere um JSON *puro* e *válido* descrevendo a imagem com realismo físico e riqueza de detalhes de moda.
+Gere um JSON puro e válido descrevendo a imagem com realismo físico e riqueza de detalhes de moda.
 
-🧩 **Formato de saída JSON obrigatório:**
+Formato de saída JSON obrigatório:
 {
   "visao_geral": "...",
   "tipo_de_peca": "...",
@@ -108,6 +114,8 @@ Gere um JSON *puro* e *válido* descrevendo a imagem com realismo físico e riqu
   "estrutura_da_roupa": "...",
   "texturas_e_materiais": "...",
   "cor_e_padrao": "...",
+  "cor_principal_hex": "#RRGGBB",
+  "cores_secundarias_hex": ["#RRGGBB", "#RRGGBB"],
   "luz_e_iluminacao": "...",
   "config_camera": "...",
   "profundidade_de_campo": "...",
@@ -117,8 +125,10 @@ Gere um JSON *puro* e *válido* descrevendo a imagem com realismo físico e riqu
   "estilo_fotografico": "..."
 }
 
-⚙️ Regras:
+Regras:
 - Sempre inicie com { e termine com }.
+- "cor_principal_hex" deve ser um código aproximado da cor principal da roupa (tecido dominante).
+- "cores_secundarias_hex" deve listar até 2 ou 3 cores importantes visíveis na roupa (sombras, detalhes, estampas).
 - Informe se a roupa é longa ou curta, tem decote, gola, fenda, mangas, cauda, transparência, etc.
 - Descreva o tipo de tecido, textura e comportamento da luz.
 - Fale como um fotógrafo e estilista, não como um crítico.
@@ -144,7 +154,7 @@ Gere um JSON *puro* e *válido* descrevendo a imagem com realismo físico e riqu
   }
 }
 
-// 3️⃣ SuperPrompt — edição, realismo, APENAS UMA ROUPA e CENÁRIO TOTALMENTE BRANCO
+// 3️⃣ SuperPrompt — edição, realismo, APENAS UMA ROUPA, CENÁRIO TOTALMENTE BRANCO e proteção de cor
 function montarSuperPrompt(descricao, promptUser, temPessoa) {
   const chavesRoupaPrioritarias = [
     'tipo_de_peca',
@@ -166,6 +176,22 @@ function montarSuperPrompt(descricao, promptUser, temPessoa) {
 
   const contextoRoupa = partesRoupa || tecnicosBase;
 
+  const corPrincipal = descricao?.cor_principal_hex;
+  const coresSecundarias = descricao?.cores_secundarias_hex;
+
+  const blocoCoresHex = corPrincipal
+    ? `
+Proteção de cor da roupa:
+- A cor principal da roupa deve corresponder ao código ${corPrincipal}.
+- Não altere o tom (hue), saturação ou luminosidade dessa cor, salvo ajustes mínimos para manter o realismo da luz de estúdio.
+${Array.isArray(coresSecundarias) && coresSecundarias.length
+  ? `- Cores secundárias relevantes: ${coresSecundarias.join(
+      ', '
+    )}. Mantenha coerência visual com essas cores.`
+  : ''}
+`
+    : '';
+
   const instrucoesManequim = temPessoa
     ? 'Mostre a roupa em UM ÚNICO manequim humano genérico de estúdio, corpo neutro, sem copiar rosto ou identidade da pessoa original.'
     : 'Mostre a roupa em UM ÚNICO manequim humano genérico de estúdio, corpo neutro, sem adicionar nenhuma pessoa específica.';
@@ -173,6 +199,8 @@ function montarSuperPrompt(descricao, promptUser, temPessoa) {
   return `
 Roupa (descrição técnica, foco total na peça):
 ${contextoRoupa}
+
+${blocoCoresHex}
 
 Tarefa:
 Gere uma foto de moda realista mostrando APENAS UMA VERSÃO da roupa descrita acima em um manequim humano genérico de estúdio.
@@ -191,6 +219,8 @@ Regras:
   - Ignore qualquer descrição de ambiente ou fundo mencionada na análise da imagem; sempre use cenário completamente branco neutro de estúdio.
   - A única indicação de chão pode ser uma sombra extremamente suave e discreta logo abaixo dos pés, sem quebrar o fundo branco.
 
+- A roupa deve manter a mesma cor da peça original. Se houver conflito entre qualquer outra instrução e a cor ${corPrincipal ||
+    'original da roupa'}, priorize manter essa cor o mais fiel possível.
 - Não copie rosto, corpo ou identidade da pessoa original.
 - Preserve tipo de peça, modelagem, caimento, tecido, textura e cor, ajustando apenas o que o pedido de edição exigir.
 - Mantenha luz e perspectiva coerentes com uma foto de estúdio real, com ambiente claro (iluminação high key).
@@ -202,9 +232,6 @@ Estilo:
 ${instrucoesManequim}
 `;
 }
-
-
-
 
 // 4️⃣ Pipeline principal
 async function handleGenerate(req, res) {
@@ -220,7 +247,10 @@ async function handleGenerate(req, res) {
 
     const imagePng = await sharp(file.buffer)
       .ensureAlpha()
-      .resize(targetW, targetH, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 1 } })
+      .resize(targetW, targetH, {
+        fit: 'contain',
+        background: { r: 255, g: 255, b: 255, alpha: 1 },
+      })
       .png()
       .toBuffer();
 
